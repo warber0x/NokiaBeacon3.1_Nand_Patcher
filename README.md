@@ -1,5 +1,23 @@
 # Nokia Beacon 3.1 — UART Enable & Root Shell Firmware Patcher
 
+## Description
+
+You need to manually extract the firmware by removing the chip from the device.
+The firmware is not available online. Each router comes with its own.
+
+This tool is intended for researchers to quickly patch firmware and start searching for what matters
+
+I am working on a script that will initialize the router, and later execute another script to enable SSH access without root password.
+
+This tool patches a raw NAND firmware dump from the Nokia Beacon 3.1 router to:
+
+* Enable UART serial console
+* Disable secure boot console restriction
+* Inject `init=/bin/sh` into boot arguments
+* Spawn a root shell during boot
+
+The patch operates directly on the redundant U-Boot environment partitions (`env` and `env2`) while preserving NAND page layout and OOB data.
+
 ## NAND Partition Layout
 
 | Partition | Offset     | Size      | Description              |
@@ -17,19 +35,6 @@
 | extfs     | 0x0CD00000 | 5M        | Extended filesystem      |
 | bbt       | 0x0D200000 | 2M        | Bad block table          |
 | data      | 0x0D400000 | Remaining | User / runtime data      |
-
----
-
-## Description
-
-This tool patches a raw NAND firmware dump from the Nokia Beacon 3.1 router to:
-
-* Enable UART serial console
-* Disable secure boot console restriction
-* Inject `init=/bin/sh` into boot arguments
-* Spawn a root shell during boot
-
-The patch operates directly on the redundant U-Boot environment partitions (`env` and `env2`) while preserving NAND page layout and OOB data.
 
 ---
 
@@ -139,12 +144,6 @@ Python logic:
 crc = binascii.crc32(newEnv[5:]) & 0xFFFFFFFF
 ```
 
-The new CRC is written into:
-
-```
-offset 0x0 – 0x3
-```
-
 Both ENV partitions receive the updated CRC.
 
 ---
@@ -200,10 +199,6 @@ python patcher.py -i OriginalDump.bin -o patched.bin
 * Always keep original NAND dump
 * Flashing incorrect image may brick device
 * Use at your own risk
+* CAUTION: USE THIS AT YOUR OWN RISK. I'M NOT RESPONSIBLE FOR ANY DAMAGE CAUSED OR BRICK CAUSED TO YOUR ROUTER.
 
 ---
-
-## Author
-
-TheRed0ne
-https://thered0ne.com
