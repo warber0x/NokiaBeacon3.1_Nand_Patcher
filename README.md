@@ -1,11 +1,16 @@
 # Nokia Beacon 3.1 — UART Enable & Root Shell Firmware Patcher
 
+## IMPORTANT: ⚠️
+
+The firmware that I tested on is : 3TN00626IJMJ28(1.2502.328)
+Check your version before using this URL: `http://YourIPaddress/device_status_web_app.cgi?getroot`
+
 ## Description
 
 You need to manually extract the firmware by removing the chip from the device.
 The firmware is not available online. Each router comes with its own.
 
-This tool is intended for researchers to quickly patch firmware and start searching for what matters
+This tool is intended for researchers to quickly patch firmware and start searching for vulnerabilities.
 
 I am working on a script that will initialize the router, and later execute another script to enable SSH access without root password.
 
