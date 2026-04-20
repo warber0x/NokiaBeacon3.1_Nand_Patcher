@@ -3,7 +3,7 @@
 ## IMPORTANT: ⚠️
 
 The firmware that I tested on is : 3TN00626IJMJ28(1.2502.328)
-Check your version before using this URL: `http://YourIPaddress/device_status_web_app.cgi?getroot`
+Check your version using this URL: `http://RouterIP/device_status_web_app.cgi?getroot`
 
 ## Description
 
