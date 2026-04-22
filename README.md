@@ -80,99 +80,6 @@ This is done for:
 
 ---
 
-### 3. Prevent Double Patching
-
-The script checks for:
-
-```
-init=/bin/sh
-```
-
-If already present, it stops to avoid corrupting the firmware.
-
----
-
-### 4. Enable UART (secboot patch)
-
-Search:
-
-```
-secboot=
-```
-
-Patch:
-
-```
-secboot=1
-```
-
-This forces the bootloader to allow serial console interaction.
-
-The modification is applied to both ENV partitions.
-
----
-
-### 5. Inject Root Shell
-
-Original bootargs:
-
-```
-setenv more_args ubi.mtd=${ubi_mtd} root=${root_mtd} rootfstype=squashfs
-```
-
-Patched bootargs:
-
-```
-setenv more_args ubi.mtd=${ubi_mtd} root=${root_mtd} rootfstype=squashfs init=/bin/sh
-```
-
-This spawns a root shell instead of launching the normal init system.
-
----
-
-### 6. CRC Recalculation
-
-Environment format:
-
-```
-[ CRC32 | FLAG | DATA ... ]
-```
-
-CRC is calculated over:
-
-```
-DATA only (excluding CRC and flag)
-```
-
-Python logic:
-
-```
-crc = binascii.crc32(newEnv[5:]) & 0xFFFFFFFF
-```
-
-Both ENV partitions receive the updated CRC.
-
----
-
-### 7. Rebuilding NAND Image
-
-The script reconstructs firmware by:
-
-1. Writing original data before ENV
-2. Writing patched ENV1 pages
-3. Re-inserting original OOB bytes
-4. Writing patched ENV2 pages
-5. Re-inserting original OOB bytes
-6. Appending remaining NAND data unchanged
-
-This preserves:
-
-* ECC data
-* bad block markers
-* page alignment
-
----
-
 ## Result After Boot
 
 After flashing patched firmware:
@@ -201,10 +108,8 @@ python patcher.py -i OriginalDump.bin -o patched.bin
 
 ## Warning
 
-* Do NOT patch already patched firmware
 * Always keep original NAND dump
 * Flashing incorrect image may brick device
-* Use at your own risk
 * CAUTION: USE THIS AT YOUR OWN RISK. I'M NOT RESPONSIBLE FOR ANY DAMAGE CAUSED OR BRICK CAUSED TO YOUR ROUTER.
 
 ---
