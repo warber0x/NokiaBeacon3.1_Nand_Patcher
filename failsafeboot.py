@@ -1,4 +1,14 @@
 #!/usr/bin/env python3
+
+#######################################################
+# Auto boot : Start the router from UART
+# Requirement: 
+# - Patch the firmware using my scipt in this folder
+# - Flash your nand
+# - Having a shell in the router through UART
+# !!! I'm not responsible if you break your device !!! 
+#######################################################
+
 import serial
 import sys
 import time
@@ -296,6 +306,7 @@ print()
 log("[*]", "All done! Boot is running.")
 log("[*]", "Wait for 5 minutes before any attempts")
 log("[*]", "ssh-keygen -R 192.168.18.1")
-log("[*]", "Happy hacking!")
+log("[*]", "After 5 min: execute ssh-keygen -R 192.168.18.1 && ssh root@192.168.18.1")
+log("[*]", "Happy hacking Hax0r!")
 
 s.close()
