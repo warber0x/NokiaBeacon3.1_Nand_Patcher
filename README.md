@@ -1,4 +1,5 @@
 # Nokia Beacon 3.1 — UART Enable & Root Shell Firmware Patcher
+# Auto boot the router when you have a shell
 
 ## IMPORTANT: ⚠️
 
@@ -110,10 +111,16 @@ python patcher.py -i OriginalDump.bin -o patched.bin
 
 ---
 
+## Boot The router once patched
+
+* Connect to the router using UART
+* Run the script `failsafeboot.py <Serial Port>`
+* For help run `failsafeboot.py  --help`
+
 ## Warning
 
 * Always keep original NAND dump
 * Flashing incorrect image may brick device
-* CAUTION: USE THIS AT YOUR OWN RISK. I'M NOT RESPONSIBLE FOR ANY DAMAGE CAUSED OR BRICK CAUSED TO YOUR ROUTER.
+* ⚠️ CAUTION: USE THIS AT YOUR OWN RISK. I'M NOT RESPONSIBLE FOR ANY DAMAGE CAUSED OR BRICK CAUSED TO YOUR ROUTER.
 
 ---
