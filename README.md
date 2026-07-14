@@ -6,6 +6,10 @@ The firmware that I tested on is : 3TN00626IJMJ28(1.2502.328)
 
 Check your version using this URL: `http://RouterIP/device_status_web_app.cgi?getroot`
 
+Or check the source code of the login page:
+
+<img width="703" height="121" alt="image" src="https://github.com/user-attachments/assets/d3d55204-9a5d-4ea2-a49d-58d5607c55d3" />
+
 ## Description
 
 You need to manually extract the firmware by removing the chip from the device.
